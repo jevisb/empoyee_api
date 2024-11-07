@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class EmployeesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //get all employees
@@ -19,22 +16,9 @@ class EmployeesController extends Controller
         return response()->json($employees);
 
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //validate the requestusingthevariable$validateor
+        //validate the request using the variable $ validateor
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -50,7 +34,7 @@ class EmployeesController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        //calculategrosspay,taxandnetpay
+        //calculate grosspay,tax and netpay
         $grossPay = $request->basic_pay + $request->housing_allowance + $request->transport_allowance;
         $tax = $grossPay * 0.20;
         $netPay = $grossPay - $tax;
@@ -71,9 +55,6 @@ class EmployeesController extends Controller
         return response()->json(['message' => 'Employee created successfully', 'employee' => $employee], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
         //displayemployee
@@ -85,7 +66,7 @@ class EmployeesController extends Controller
     }
     public function update(Request $request,$id)
     {
-        //updaterecord
+        //update record
         $employee = Employee::find($id);
         if ($employee) {
             $validator = Validator::make($request->all(), [
